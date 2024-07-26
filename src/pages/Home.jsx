@@ -29,7 +29,7 @@ function Home() {
         {/* Text and Button Section */}
         <div className="text-center lg:text-left lg:ml-24">
           <h1 className="text-5xl lg:text-6xl font-mono text-sd-medium font-bold mb-12">
-            CodeGeeks ---
+            CodeGeeks
           </h1>
           <h2 className="text-xl lg:text-2xl font-mono text-gray-300 mb-10">
             Create your own groups, compete in coding battles, and discuss
