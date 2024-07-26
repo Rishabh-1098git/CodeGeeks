@@ -8,6 +8,8 @@ import { PlusOutlined } from "@ant-design/icons";
 import { IoIosRemoveCircle } from "react-icons/io";
 import { auth } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import Chat from "../components/Chat";
+import { IoChatboxEllipsesOutline } from "react-icons/io5";
 
 // Function to determine the medal based on rank
 const getMedal = (rank) => {
@@ -28,6 +30,7 @@ const GroupPage = () => {
   const [group, setGroup] = useState(null);
   const [members, setMembers] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isChatVisible, setIsChatVisible] = useState(false);
   const [user] = useAuthState(auth); // Current authenticated user
 
   useEffect(() => {
@@ -47,7 +50,7 @@ const GroupPage = () => {
                 id: memberId,
                 avatar: memberData.leetcodeData?.profile?.avatar || "",
                 contestRating:
-                  memberData.leetcodeData?.contest?.contestRating || "N/A",
+                  memberData.leetcodeData?.contest?.contestRating || NaN,
               };
             })
           );
@@ -95,7 +98,7 @@ const GroupPage = () => {
         ...memberData,
         id: newMemberId,
         avatar: memberData.leetcodeData?.profile?.avatar || "",
-        contestRating: memberData.leetcodeData?.contest?.contestRating || "N/A",
+        contestRating: memberData.leetcodeData?.contest?.contestRating || NaN,
       };
 
       setMembers((prevMembers) => [...prevMembers, newMember]);
@@ -105,104 +108,147 @@ const GroupPage = () => {
     }
   };
 
+  const handleChatClick = () => {
+    console.log("Chat Clicked!!!");
+    setIsChatVisible(true);
+  };
+
+  const handleBackClick = () => {
+    console.log("Back Clicked!!!");
+    setIsChatVisible(false);
+  };
+
   return (
     <div className="p-10 bg-black-bg bg-opacity-90 min-h-screen">
-      {/* Group Info Section */}
-      {group && (
-        <>
-          <div className="mb-10 mt-24 p-4 bg-custom-gradient shadow-lg rounded-lg">
-            {/* Group Description */}
-            <h2 className="text-3xl font-mono text-gray-200 mb-4">
-              {group.name}
-            </h2>
-            <p className="text-lg text-sd-easy mb-4 font-mono">
-              {group.description}
-            </p>
+      {isChatVisible ? (
+        <div
+          className="bg-custom-gradient h-[80%] mt-12 "
+          onClick={() => console.log("Cilcked baby")}
+        >
+          <button
+            className="bg-sd-medium text-black p-2 rounded-lg font-mono font-bold mb-4 mt-3 ml-2 z-50 relative "
+            onClick={handleBackClick}
+          >
+            Back
+          </button>
 
-            {/* List of Members */}
-            <div className="flex flex-wrap gap-4 mb-8">
-              {members.map((member) => (
-                <div
-                  key={member.id}
-                  className="flex items-center gap-2 shadow-lg p-2 rounded-lg"
-                >
+          <Chat
+            handleBackClick={handleBackClick}
+            setIsChatVisible={setIsChatVisible}
+          />
+        </div>
+      ) : (
+        <>
+          {/* Group Info Section */}
+          {group && (
+            <div className="mb-10 mt-24 p-4 bg-custom-gradient shadow-lg rounded-lg">
+              <div className="flex lg:justify-between">
+                <h2 className="text-3xl font-mono text-gray-200 mb-4">
                   <Avatar
                     size={40}
-                    src={member.avatar}
-                    alt={member.name}
-                    className="mb-2 text-xl"
+                    src={group.avatar}
+                    alt={group.name}
+                    className="mb-2 text-xl mr-2"
                   />
-                  <div className="flex flex-col">
-                    <span className="text-gray-200 font-mono text-xl">
-                      {member.name}
-                    </span>
-                    {group.createdBy === member.id && (
-                      <span className="text-sm text-sd-medium font-mono font-bold">
-                        Admin
+                  {group.name}
+                </h2>
+                <button
+                  className="ml-10 bg-sd-medium h-10 w-20 rounded-3xl"
+                  onClick={handleChatClick}
+                >
+                  Chat
+                </button>
+              </div>
+              <p className="text-lg text-sd-easy mb-4 font-mono">
+                {group.description}
+              </p>
+              <div className="flex flex-wrap gap-4 mb-8">
+                {members.map((member) => (
+                  <div
+                    key={member.id}
+                    className="flex items-center gap-2 shadow-lg p-2 rounded-lg"
+                  >
+                    <Avatar
+                      size={40}
+                      src={member.avatar}
+                      alt={member.name}
+                      className="mb-2 text-xl"
+                    />
+                    <div className="flex flex-col">
+                      <span className="text-gray-200 font-mono text-xl">
+                        {member.name}
                       </span>
-                    )}
-                    {group.createdBy === user.uid &&
-                      group.createdBy !== member.id && (
-                        <span
-                          className="text-lg text-sd-hard font-mono font-bold cursor-pointer"
-                          onClick={() => handleRemove(member.id)}
-                        >
-                          <IoIosRemoveCircle />
+                      {group.createdBy === member.id && (
+                        <span className="text-sm text-sd-medium font-mono font-bold">
+                          Admin
                         </span>
                       )}
+                      {group.createdBy === user.uid &&
+                        group.createdBy !== member.id && (
+                          <span
+                            className="text-lg text-sd-hard font-mono font-bold cursor-pointer"
+                            onClick={() => handleRemove(member.id)}
+                          >
+                            <IoIosRemoveCircle />
+                          </span>
+                        )}
+                    </div>
                   </div>
-                </div>
-              ))}
-              {group.createdBy === user.uid && (
-                <div
-                  className="flex items-center justify-center shadow-lg p-2 rounded-lg transition bg-sd-medium duration-300 cursor-pointer"
-                  onClick={handleAddMemberClick}
-                  title="Add Member"
-                >
-                  <PlusOutlined className="text-2xl text-black" />
-                  <span className="ml-2 text-black font-mono font-bold">
-                    Add Member
-                  </span>
-                </div>
-              )}
-            </div>
-
-            {/* Leaderboard */}
-            <div className="bg-custom-gradient shadow-lg rounded-lg p-4">
-              <h2 className="text-3xl font-mono text-gray-200 mb-4">
-                Leaderboard
-              </h2>
-              <ul className="list-none">
-                {members
-                  .sort((a, b) => b.contestRating - a.contestRating)
-                  .map((member, index) => (
-                    <li key={index} className="flex justify-between mb-2">
-                      <div className="flex items-center">
-                        <span className="text-2xl mr-2">
-                          {getMedal(index + 1)}
-                        </span>
-                        <Avatar
-                          size={48}
-                          src={member.avatar}
-                          alt={member.name}
-                          className="mr-2"
-                        />
-                        <div className="flex flex-col">
-                          <span className="text-gray-200 font-mono text-xl">
-                            {member.name}
+                ))}
+                {group.createdBy === user.uid && (
+                  <div
+                    className="flex items-center justify-center shadow-lg p-2 rounded-lg transition bg-sd-medium duration-300 cursor-pointer"
+                    onClick={handleAddMemberClick}
+                    title="Add Member"
+                  >
+                    <PlusOutlined className="text-2xl text-black" />
+                    <span className="ml-2 text-black font-mono font-bold">
+                      Add Member
+                    </span>
+                  </div>
+                )}
+              </div>
+              <div className="bg-custom-gradient shadow-lg rounded-lg p-4">
+                <h2 className="text-3xl font-mono text-gray-200 mb-4">
+                  Leaderboard
+                </h2>
+                <ul className="list-none">
+                  {members
+                    .sort((a, b) => {
+                      if (isNaN(a.contestRating)) return 1;
+                      if (isNaN(b.contestRating)) return -1;
+                      return b.contestRating - a.contestRating;
+                    })
+                    .map((member, index) => (
+                      <li key={index} className="flex justify-between mb-2">
+                        <div className="flex items-center">
+                          <span className="text-2xl mr-2 text-gray-300">
+                            {getMedal(index + 1) || `${index + 1}`}
                           </span>
-                          <span className="text-sd-hard font-mono text-lg mt-1">
-                            Contest Rating: {Math.floor(member.contestRating)}
-                          </span>
+                          <Avatar
+                            size={48}
+                            src={member.avatar}
+                            alt={member.name}
+                            className="mr-2"
+                          />
+                          <div className="flex flex-col">
+                            <span className="text-gray-200 font-mono text-xl">
+                              {member.name}
+                            </span>
+                            <span className="text-sd-hard font-mono text-lg mt-1">
+                              Contest Rating:{" "}
+                              {isNaN(member.contestRating)
+                                ? "N/A"
+                                : Math.floor(member.contestRating)}
+                            </span>
+                          </div>
                         </div>
-                      </div>
-                    </li>
-                  ))}
-              </ul>
+                      </li>
+                    ))}
+                </ul>
+              </div>
             </div>
-          </div>
-
-          {/* Add Member Modal */}
+          )}
           <AddMemberModal
             visible={isModalVisible}
             onClose={handleCloseModal}

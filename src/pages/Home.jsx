@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import HeroImg from "../assets/HeroImage.jpg";
+import HeroImg from "../assets/Home1.jpg";
 import Dashboard from "../assets/Dashboard.jpg";
 import Chat from "../assets/Chat.jpg";
 import Leaderboard from "../assets/Leaderboard.jpg";
@@ -16,11 +16,11 @@ function Home() {
       {/* Hero Section */}
       <div className="flex flex-col lg:flex-row items-center justify-center lg:justify-between p-6 h-screen">
         {/* Hero Image Section */}
-        <div className="flex justify-center lg:justify-start mb-8 lg:mb-0 lg:ml-10 lg:-rotate-12">
+        <div className="flex justify-center lg:justify-start mb-8 lg:mb-0 lg:ml-10 lg:-rotate-12 mt-12">
           <motion.img
             src={HeroImg}
             alt="Hero"
-            className="rounded-3xl h-[300px] w-[300px] lg:h-[400px] lg:w-[400px] shadow-sd-easy transform lg:-rotate-12"
+            className="rounded-3xl h-[300px] w-[300px] lg:h-[400px] lg:w-[1000px] shadow-xl shadow-sd-easy transform lg:-rotate-12"
             initial={{ y: 0 }}
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
@@ -28,15 +28,17 @@ function Home() {
         </div>
         {/* Text and Button Section */}
         <div className="text-center lg:text-left lg:ml-24">
-          <h1 className="text-5xl lg:text-6xl font-mono font-bold mb-4">
+          <h1 className="text-5xl lg:text-6xl font-mono text-sd-medium font-bold mb-12">
             CodeGeeks
           </h1>
-          <h2 className="text-xl lg:text-3xl font-mono text-sd-medium mb-6">
-            Create groups, compete, and discuss with others to keep Leetcoding.
+          <h2 className="text-xl lg:text-2xl font-mono text-gray-300 mb-10">
+            Create your own groups, compete in coding battles, and discuss
+            strategies with fellow coders. Stay sharp and keep leveling up your
+            skills—together, we make LeetCoding exhilarating and effective!
           </h2>
           <Link to="/signUp-signIn">
             <button
-              className="bg-sd-easy h-12 w-40 rounded-3xl font-mono font-bold hover:bg-cyan transition duration-300"
+              className="bg-sd-medium h-12 w-40 rounded-3xl font-mono shadow-lg font-bold hover:bg-cyan transition duration-300"
               onClick={() => navigate("/signUp-signIn")}
             >
               Create Account
@@ -52,7 +54,7 @@ function Home() {
         </h2>
         <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12">
           <motion.div
-            className="text-center bg-custom-dark-gray p-6 rounded-lg shadow-md shadow-sd-easy"
+            className="text-center bg-custom-dark-gray p-6 rounded-lg shadow-xl shadow-sd-easy"
             initial={{ x: -200, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             transition={{ duration: 1.2, type: "spring", stiffness: 50 }}
@@ -63,15 +65,14 @@ function Home() {
               className="mx-auto mb-4 max-h-60 rounded-3xl w-[70%]"
             />
             <h3 className="text-2xl font-bold mb-2 font-mono text-sd-easy">
-              Personal Finance Tracker
+              Personal Dashboard
             </h3>
             <p className="font-mono">
-              Manage your expenses and income with our intuitive finance
-              tracker.
+              A personal dashboard that show your leetcode stats.
             </p>
           </motion.div>
           <motion.div
-            className="text-center bg-custom-dark-gray p-6 rounded-lg shadow-md shadow-sd-medium"
+            className="text-center bg-custom-dark-gray p-6 rounded-lg shadow-xl shadow-sd-medium"
             initial={{ x: -200, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             transition={{ duration: 1.2, type: "spring", stiffness: 50 }}
@@ -89,7 +90,7 @@ function Home() {
             </p>
           </motion.div>
           <motion.div
-            className="text-center bg-custom-dark-gray p-6 rounded-lg shadow-md shadow-sd-hard"
+            className="text-center bg-custom-dark-gray p-6 rounded-lg shadow-xl shadow-sd-hard"
             initial={{ x: -200, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             transition={{ duration: 1.2, type: "spring", stiffness: 50 }}
@@ -141,7 +142,8 @@ function Home() {
           <motion.img
             src={Contribution}
             alt="About Us"
-            className="rounded-3xl h-[300px] w-[300px] lg:h-[400px] lg:w-[400px] shadow-sd-medium transform lg:rotate-12 mr-10"
+            className="rounded-3xl h-[300px] w-[300px] lg:h-[400px] lg:w-[400px] shadow-sd-medium transform 
+            shadow-xl lg:rotate-12 mr-10"
             initial={{ y: 0 }}
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
@@ -154,7 +156,7 @@ function Home() {
           <motion.img
             src={ContributeImg}
             alt="Contribute"
-            className="rounded-3xl h-[200px] w-[200px] lg:h-[300px] lg:w-[300px] shadow-sd-easy transform lg:rotate-12 mb-8 lg:mb-0"
+            className="rounded-3xl h-[200px] w-[200px] lg:h-[300px] lg:w-[300px] shadow-sd-easy transform lg:rotate-12 mb-8 lg:mb-0 shadow-xl"
             initial={{ y: 0 }}
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
@@ -167,7 +169,7 @@ function Home() {
               provide feedback, there are many ways you can contribute to
               CodeGeeks. Join us in building a great platform for everyone!
             </p>
-            <Link to="/contribute">
+            <Link to="https://github.com/Rishabh-1098git/CodeGeeks">
               <button className="bg-sd-medium h-12 w-40 rounded-3xl font-mono font-bold hover:bg-yellow-400 transition duration-300 text-blue-900">
                 Contribute Now
               </button>
