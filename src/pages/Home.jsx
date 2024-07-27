@@ -14,7 +14,7 @@ function Home() {
   return (
     <div className="min-h-screen bg-home-gradient text-white flex flex-col ">
       {/* Hero Section */}
-      <div className="flex flex-col lg:flex-row items-center justify-center lg:justify-between p-6 h-screen sm:mt-52">
+      <div className="flex flex-col lg:flex-row items-center justify-center lg:justify-between p-6 h-screen ">
         {/* Hero Image Section */}
         <div className="flex justify-center lg:justify-start mb-8 lg:mb-0 lg:ml-10 lg:-rotate-12 ">
           <motion.img
