@@ -16,7 +16,7 @@ function Home() {
       {/* Hero Section */}
       <div className="flex flex-col lg:flex-row items-center justify-center lg:justify-between p-6 h-screen sm:mt-52">
         {/* Hero Image Section */}
-        <div className="flex justify-center lg:justify-start mb-8 lg:mb-0 lg:ml-10 lg:-rotate-12 mt-12">
+        <div className="flex justify-center lg:justify-start mb-8 lg:mb-0 lg:ml-10 lg:-rotate-12 ">
           <motion.img
             src={HeroImg}
             alt="Hero"
