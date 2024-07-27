@@ -12,9 +12,9 @@ import { useNavigate } from "react-router-dom";
 function Home() {
   const navigate = useNavigate();
   return (
-    <div className="min-h-screen bg-home-gradient text-white flex flex-col">
+    <div className="min-h-screen bg-home-gradient text-white flex flex-col ">
       {/* Hero Section */}
-      <div className="flex flex-col lg:flex-row items-center justify-center lg:justify-between p-6 h-screen">
+      <div className="flex flex-col lg:flex-row items-center justify-center lg:justify-between p-6 h-screen sm:mt-52">
         {/* Hero Image Section */}
         <div className="flex justify-center lg:justify-start mb-8 lg:mb-0 lg:ml-10 lg:-rotate-12 mt-12">
           <motion.img

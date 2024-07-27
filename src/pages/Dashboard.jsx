@@ -67,17 +67,21 @@ function Dashboard() {
   return (
     <div>
       <Header />
-      <div className="h-full p-24">
-        <div className="flex flex-col lg:flex-row lg:space-x-4 ">
-          <div className="w-full lg:w-2/5">
+      <div className="h-full p-4 md:p-8 lg:p-24">
+        <div className="flex flex-col lg:flex-row lg:space-x-4 space-y-4 lg:space-y-0">
+          <div className="w-full lg:w-2/5 ">
             <ProfileCard profile={profile} />
           </div>
           <div className="w-full lg:w-3/5">
             <StatsSvg username={username} />
           </div>
         </div>
-        <StatsCard stats={stats} contestStats={contest} />
-        <SubmissionsCard submissions={submissions} />
+        <div className="mt-4">
+          <StatsCard stats={stats} contestStats={contest} />
+        </div>
+        <div className="mt-4">
+          <SubmissionsCard submissions={submissions} />
+        </div>
       </div>
     </div>
   );
