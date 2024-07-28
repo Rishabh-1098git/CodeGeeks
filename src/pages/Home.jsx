@@ -1,16 +1,51 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import HeroImg from "../assets/Home1.jpg";
 import Dashboard from "../assets/Dashboard.jpg";
 import Chat from "../assets/Chat.jpg";
 import Leaderboard from "../assets/Leaderboard.jpg";
-// Import the About Us image
 import Contribution from "../assets/Contribute.jpg";
 import ContributeImg from "../assets/github1.png";
 import { useNavigate } from "react-router-dom";
+import Loader from "../components/Loader";
 function Home() {
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const images = [
+      HeroImg,
+      Dashboard,
+      Chat,
+      Leaderboard,
+      Contribution,
+      ContributeImg,
+    ];
+
+    const imagePromises = images.map((src) => {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.src = src;
+        img.onload = resolve;
+        img.onerror = reject;
+      });
+    });
+
+    Promise.all(imagePromises)
+      .then(() => {
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error loading images", error);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <div className="min-h-screen bg-home-gradient text-white flex flex-col ">
       {/* Hero Section */}
@@ -68,7 +103,7 @@ function Home() {
               Personal Dashboard
             </h3>
             <p className="font-mono">
-              A personal dashboard that show your leetcode stats.
+              A personal dashboard that shows your leetcode stats.
             </p>
           </motion.div>
           <motion.div
