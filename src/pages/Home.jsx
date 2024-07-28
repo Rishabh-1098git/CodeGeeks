@@ -154,7 +154,7 @@ function Home() {
           whileInView={{ opacity: 1 }}
           transition={{ duration: 1 }}
         />
-        <div className="container mx-auto px-6 flex flex-col lg:flex-row items-center relative z-10 -rotate-1">
+        <div className="container mx-auto px-6 flex flex-col lg:flex-row items-center relative z-10">
           <motion.div
             className="text-center lg:text-left mr-10 "
             initial={{ y: 100, opacity: 0 }}
