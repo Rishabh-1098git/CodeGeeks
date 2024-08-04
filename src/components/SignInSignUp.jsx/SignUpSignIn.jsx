@@ -131,7 +131,7 @@ function SignUpSignin() {
   return (
     <>
       {loginForm ? (
-        <div className="h-[400px] w-[400px] flex flex-col justify-center items-center p-6 space-y-4 bg-custom-gradient rounded-lg shadow-lg font-mono">
+        <div className="h-[400px] w-[400px] flex flex-col justify-center items-center p-6 space-y-4 bg-custom-gradient rounded-lg shadow-lg font-mono ">
           <h2 className="text-2xl font-bold mb-4 text-slate-300">Login</h2>
           <Input
             type="text"

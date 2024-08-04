@@ -100,7 +100,7 @@ function Header() {
             href="#"
             className="font-mono text-xl text-slate-200 cursor-pointer hover:text-sd-medium"
           >
-            About Us
+            AboutUs
           </a>
           <Button text="Logout" onClick={handleLogout} />
         </div>
